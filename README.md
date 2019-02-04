@@ -1,1 +1,0 @@
-# Sparta_Global_Geometry_Dash
