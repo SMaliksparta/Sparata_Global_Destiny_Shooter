@@ -49,117 +49,161 @@ home.play()
   //The setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds).
 
   setInterval(function countDown() {
-    //the countDown() Function looks at if there is no time left
+    //the countDown() Function looks at if there is time left
+    //dont use -1 it doesnt count down the number
+    //if the timer is not 0 it will then take away 1.
     if (timeLeft != 0) {
-      timeLeft--;
+      timeLeft --;
 
     }
-
+    // if time is 0 clear the page
     if (timeLeft == 0) { //remove image
 
-      //remove image of last enemy
+      //i needed to find a way to remove the last image that was loaded in from the div. based on $('.img ...').remove();
       $(".img img:last-child").remove()
 
       playGame = false;
+      // when the game isnt being played anymore
       clearInterval(timerId);
-        //The setInterval() method will continue calling the function until clearInterval() is called, or the window is closed.
+        //The setInterval() method will continue calling the function until clearInterval() is called so i create it here.
+        //i reference the id on my html page and seeting up how the countdown will look like
 
-      modal.style.display = "block";
+
       timer.html("<b class='timer'>Timer: " + timeLeft + " </b>");
+      //the <b> lets me bold text
+      //this if statement results in keeping the timer blank after the game ends
 
     } else {
+      // this counts down the timer in intervals of 1's
       timer.html("<b>Timer: " + timeLeft + " </b>");
     }
   }, 1000);
 
-  //array to hold image names
-  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+  //found out JQuery is one of the better ways to assign the numbers to an container
+  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8","9"]
+  //i named them numbers for the gernetateRandomArray() function to pull out images much more easier
   //generate random number for name, as names are 0-8
+  //NEW FUNCTION
   function generateRandomForArray() {
-    var num = Math.floor(Math.random() * 9);
+    //Math.random generates a number between 0 and 1, that isn't a whole number, and also isn't 1. To get a number, for example between 0 and 10, multiply your answer by 10:
+   //Math.random() * 10
+   //To get it to be a whole number, i.e. an integer, apply Math.floor, which rounds down to the nearest whole number:
+   //Math.floor(Math.random() * 10)
+//To get a whole number between 1 and 10, add 1 to the answer:
+//Math.floor(Math.random() * 10 + 1)
+
+    var num = Math.floor(Math.random() * 9 + 1);
+    //this sets a random whole number into the var num
     return num;
   }
 
+//NEW FUNCTION
 
   //generate random position values for top
-  function generateRandom() {
-    var num = Math.floor(Math.random() * (($(window).height() - 250) - 150 + 1) + 150);
+  function generateRandomHeight() {
+    var num = Math.floor(Math.random() *
+    // $(window).height() gets you the height of the (browser) window aka viewport.
+     (($(window).height() - 250) - 150 + 1) + 150);
     return num;
   }
-
-  //generate random positions value for left
-  function generateRandomLeft() {
+//NEW FUNCTION
+  //generate random positions value for Width
+  function generateRandomWidth() {
+    // $(window).weight() gets you the width of the (browser) window aka viewport.
     var num = Math.floor(Math.random() * (($(window).width() - 250) - 100 + 1) + 100);
     return num;
   }
 
+//NEW FUNCTION
   //random number generator to set size of characters
+  // i wanted to randomly generate the size of characters so i gave it a min but i wanted to generrate a size between 500 and 100 following the example of Math.floor(Math.random() * (max - min + 1) ) + min;
   function generateSize() {
     var num = Math.floor(Math.random() * (500 - 100 + 1) + 100);
     return num;
   }
 
   //sets value of imgaes and gos through them changing image file and position
+
   function setValue() {
     if (playGame == true) {
 
       $(".img img:last-child").remove()
+
       var num = container[generateRandomForArray()];
+      // this looks at the number that was generated within the generateRandomForArray and puts it as the container number
       var size = generateSize();
+      //for the size of the image call the generateSize function
       img.append("<img class='size' style='width:" + size + "px' src ='img/" + num + ".jpeg'>");
-      var left = generateRandomLeft();
-      var top = generateRandom();
+      //debugger;
+      //this was the tricky bit i needed to call the image size with a randomly generated size
+      var left = generateRandomWidth();
+      //this generate the co ordinates on the within the page limits on the x -axis
+      var top = generateRandomHeight();
+      ////this generate the co ordinates on the within the page limits on the y -axis
       img.last().css({
+        //im calling the last child afunction and assigning its postion
         "position": "absolute",
+        //The element is positioned relative to its first positioned ancestor element
         "top": top + "px",
         "left": left + "px",
         "width": size + "px",
         "height": size + "px"
+        //this takes the the vars returned from the specified functions and gets ready to print the image
       });
 
     }
 
   }
 
-  //clicking on image gets score and removes picture of enemy
+  //when clicking on image gets score and removes picture of enemy
+
   img.click(function() {
     if (timeLeft == 0) {
       playerScore = 0;
     }
-
+// added +1 score to the intial value
     playerScore++;
-    score.html("<b  class='score'> SCORE: " + playerScore + " </b>");
+    //this references the score html clss
+    score.html("<b  class='score'> Score: " + playerScore + " </b>");
 
     $(".img img:last-child").remove()
+    //this removes the iamge after click
   })
 
 
   //click function for modal to restart game
   restart.click(function() {
-    location.reload(); //reload page
+    location.reload(); //this reloads the current document
   })
 
+//var timerId creates and set it to the 0 value.
   var timerId = 0;
-
+//if the
   function setResetInterval(bool) {
 
     if (bool) {
+      //this creates the timer and starts coutning down and calls a funciton that i hve created before
       timerId = setInterval(function() {
+        //waits for the game to be played again
         setValue();
       }, 1000)
     } else {
+      //this would reset the timer
       clearInterval(timerId);
     }
   }
 
-
-
   //play button
+  // after clicking the play button i want to start the game up with these functions going off.
+
   play.click(function() {
 
     home.pause();
+    //
     home.currentTime = 0;
+    //at the homepage it gets the time and sets it to 0
     playerScore = 0;
+    //resets the previous score to 0 if there was one and assigns it a 0
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
 
