@@ -5,21 +5,49 @@
   <meta charset="utf-8">
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link rel="stylesheet" href="main/style.css">
-  <script src="deps/jquery.js"></script>
-  <script src="main/game.js"></script>
+  <script src="jquery/jquery.js">
+  </script>
+  <script src="main/game.js">
+  </script>
 
   <title></title>
+
   <body>
     <div id="bg"></div>
-    <div id="blackBg"></div>
+    <div id="start"></div>
 
-    <a class="center"><button id="button" class="play "> Play </button></a><br>
-    <a class="center"><button id="button" class="restart "> Restart </button></a><br>
-    <a class="center" href="instructions.html "><button id="button" >Instructions</button></a><br>
-  </div>
-</div>
-<!-- background img -->
-<div class="bg"></div>
+    <!-- The Modal Div -->
+    <div id="myModal" class="modal">
 
-</body>
+      <!-- Modal content -->
+
+        <button id="button" class="play "> Play </button></a><br>
+        <button id="button" class="restart "> Restart </button></a><br>
+        <a class="" href="instructions.html "><button id="button" >Instructions</button></a><br>
+      </div>
+    </div>
+    <!-- background img -->
+    <div class="bg"></div>
+    <!--logo  container -->
+    <div class="container-fluid">
+      <div class="row HUD">
+        <div id="button" class="col-md-2 score ">
+          SCORE
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div id="button" class="col-md-2 timer">
+          TIMER
+        </div>
+      </div>
+    </div>
+    <!-- container end -->
+    <div class="img size">
+    </div>
+    <!-- end of body -->
+  </body>
 </html>
