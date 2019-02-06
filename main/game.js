@@ -17,7 +17,7 @@ $(document).ready(function() {
   var imgSize = $(".size");
   var restart = $(".restart");
 
-  //TIMER 
+  //TIMER
   var timeLeft = 0; //30 seconds timer for player
 
     setInterval(function countDown() {
@@ -29,26 +29,28 @@ $(document).ready(function() {
     }
     if (timeLeft == 0) { //remove image
 
+      //remove image of last enemy
       $(".img img:last-child").remove()
 
       playGame = false;
       clearInterval(pictureTimer);
 
+      modal.style.display = "block";
       timer.html("<b class='timer'>Timer: " + timeLeft + " </b>");
-
     } else {
       timer.html("<b>Timer: " + timeLeft + " </b>");
     }
   }, 1000);
 
+  $('#bg').css("background-image", "url(img/back1.jpg)");
+
   //found out JQuery is one of the better ways to assign the numbers to an container
   var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+  //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]
   //generate random number for name, as names are 0-8
   //NEW FUNCTION
   function generateRandomForArray() {
-
     //Math.random generates a number between 0 and 1, apply Math.floor, which rounds down to the nearest whole number:
-
     //Math.floor(Math.random() * 10 + 1)
     var num = Math.floor(Math.random() * 16 + 1);
     return num;
@@ -118,7 +120,7 @@ $(document).ready(function() {
   })
 
 
-  //click function for modal to restart game
+  //click function to restart game
   restart.click(function() {
     location.reload();
   })
@@ -163,4 +165,10 @@ $(document).ready(function() {
   });
   //Modal
   var modal = document.getElementById('myModal');
+  var btn = document.getElementById("myBtn");
+
+    btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
 });
