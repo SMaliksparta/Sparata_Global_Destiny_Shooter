@@ -1,0 +1,13 @@
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body, html {
+  font-family: 'bigNoodle', sans-serif;
+  height: 100%;
+  margin: 0;
+  background-image: url("../img/menu.gif");
+  background-size: cover;
+}
