@@ -17,7 +17,7 @@ $(document).ready(function() {
   var imgSize = $(".size");
   var restart = $(".restart");
 
-  //TIMER
+  //TIMER 
   var timeLeft = 0; //30 seconds timer for player
 
     setInterval(function countDown() {
