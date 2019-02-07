@@ -1,18 +1,13 @@
 @font-face {
-  font-family: 'bigNoodle';
-  src: url('../fonts/font.eot') format('opentype');
-  src: url('../fonts/font.ttf') format('truetype');
+  font-family: 'Futura';
+  src: url('../fonts/font.ttf');
 }
+
 #bg {
   background-color: grey;
-  background-size:cover;
-background-repeat: no-repeat;
-background-attachment:fixed;
-background-position: center 0px;
   width: 100%;
   height: 100%;
 }
-
 
 /* modal  */
 

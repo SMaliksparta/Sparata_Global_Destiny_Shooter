@@ -78,8 +78,8 @@ $(document).ready(function() {
     }
   }, 1000);
 
-  $('#bg').css("background-image", "url(img/back1.jpg)");
-
+  $('#bg').css("background-image", "url(img/back1.png)");
+$('#bg').fadeIn();
   //found out JQuery is one of the better ways to assign the numbers to an container
   var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
   //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]

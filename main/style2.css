@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Futura';
+  src: url('../fonts/font.ttf')format('truetype');
+}
+
+img {
+  //click function for modal to restart game
+  restart.click(function() {
+    playerScore=0;
+    timeLeft=30;
+    console.log("hello")
+  }
+  )
+}
 
 body {
   overflow-x: hidden;
@@ -5,9 +19,63 @@ body {
 }
 
 body, html {
-  font-family: 'bigNoodle', sans-serif;
+  font-family: 'Fututra', sans-serif;
   height: 100%;
   margin: 0;
   background-image: url("../img/menu.gif");
   background-size: cover;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.HUD {
+  font-size: 50px;
+}
+
+/* center text with this class */
+
+.center {
+  text-align: center;
+}
+
+
+/* make button transparent */
+
+button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-family: 'Futura', sans-serif;
+  font-size: 80px;
+}
+
+.sizeInstructions {
+  font-size: 40px;
+  text-decoration-color: orange;
+  text-align: left
+}
+
+#button {
+  border-radius: 2%;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  animation: buttons-animation 5s;
+
+  /* Safari and Chrome */
+}
+
+@-webkit-keyframes buttons-animation {
+  30% {
+    background-color: black;
+  }
+  50% {
+    background-color: white;
+  }
+  100% {
+    background-color: blue;
+  }
+  -webkit-animation: buttons-animation 5s infinite;
 }
