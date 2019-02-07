@@ -82,7 +82,7 @@ home.play()
     }
   }, 1000);
 
-  $('#bg').css("background-image", "url(img/stage.png)");
+  $('#bg').css("background-image", "url(img/stage.jpg)");
     $('#bg').fadeIn();
 
 //changes background image
@@ -100,7 +100,7 @@ home.play()
   }, 9000)
 
   //found out JQuery is one of the better ways to assign the numbers to an container
-  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16","17","18","19","20","21","22"]
 var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
   //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]
   //generate random number for name, as names are 0-8
@@ -108,7 +108,7 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
   function generateRandomForArray() {
     //Math.random generates a number between 0 and 1, apply Math.floor, which rounds down to the nearest whole number:
     //Math.floor(Math.random() * 10 + 1)
-    var num = Math.floor(Math.random() * 16 + 1);
+    var num = Math.floor(Math.random() * 22 + 1);
     return num;
   }
   function generateRandomForBG() {
@@ -168,6 +168,22 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
 
   }
 
+
+
+  //restart audio on click
+  function audioPlay() {
+    if (snd.paused) {
+      snd.play();
+    } else {
+      snd.currentTime = 0
+    }
+  }
+
+
+
+  var snd = new Audio("kill.mp3");
+  //clearInterval(interval);
+
   //when clicking on image gets score and removes picture of enemy
 
   img.click(function() {
@@ -214,8 +230,6 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
     home.pause();
     home.currentTime = 0;
     playerScore = 0;
-
-
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
     //play main audiom (overwatch win music)

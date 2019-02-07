@@ -1,4 +1,8 @@
-
+@font-face {
+  font-family: 'bigNoodle';
+  src: url('../fonts/font.eot') format('opentype');
+  src: url('../fonts/font.ttf') format('truetype');
+}
 img {
   //click function for modal to restart game
   restart.click(function() {
@@ -84,11 +88,6 @@ body, html.load {
   font-size: 20px;
 }
 
-.mercy {
-  height: 100px;
-  width: auto;
-}
-
 .HUD {
   font-size: 60px;
 }
@@ -98,15 +97,6 @@ body, html.load {
 .center {
   text-align: center;
 }
-
-.logo {
-  height: 200px;
-  width: auto;
-  /* makes the characters appear above the logo */
-  z-index: -1;
-}
-
-.size {}
 
 .timer {
   height: 80px;
@@ -200,13 +190,13 @@ button {
 
 @-webkit-keyframes buttons-animation {
   30% {
-    background-color: orange;
+    background-color: white;
   }
   50% {
-    background-color: yellow;
+    background-color: Dimgrey;
   }
   100% {
-    background-color: orange;
+    background-color: white;
   }
 }
 
