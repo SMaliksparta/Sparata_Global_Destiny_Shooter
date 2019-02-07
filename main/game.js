@@ -1,26 +1,35 @@
 $(document).ready(function() {
   $('.img').on('dragstart', function(event) {
-//prevents any drag/drop on the page
+    //prevents any drag/drop on the page
     event.preventDefault();
   });
+
+  var names = [];
+  var storedNames;
+  storedNames = JSON.parse(localStorage.getItem("names"));
+  var highScore = 0; //highscore
+  if (storedNames != null) {
+    highScore = storedNames[storedNames.length - 1];
+  }
 
   var start = document.getElementById("start");
   var playGame = false;
   //the var play links to the play class onthe html page.
   var play = $(".play");
   var playerScore = 0;
-
+  debugger;
   //set selectors
   var timer = $(".timer");
   var score = $(".score");
   var img = $(".img");
   var imgSize = $(".size");
   var restart = $(".restart");
+  var clearScore = $(".clearScore");
 
   //TIMER
   var timeLeft = 0; //30 seconds timer for player
 
-    setInterval(function countDown() {
+  setInterval(function countDown() {
     //the countDown() Function looks at if there is time left
     //dont use -1 it doesnt count down the number.
     if (timeLeft != 0) {
@@ -28,6 +37,33 @@ $(document).ready(function() {
 
     }
     if (timeLeft == 0) { //remove image
+
+      //push score to leaderboard
+      //get the highest score and push it to leader board only if it's
+      //higher than current score
+
+
+      //if statement to update highscore
+      if (playerScore > highScore) {
+        //delete previous high score array text
+
+
+        localStorage.setItem("names", JSON.stringify(names));
+        names.push(playerScore) //add score
+        // names[0]=playerScore;
+        localStorage.setItem("names", JSON.stringify(names));
+        storedNames = JSON.parse(localStorage.getItem("names"));
+
+        highScore = playerScore;
+
+        for (var i = 0; i < (storedNames.length); i++) {
+          $('#test').append("<h1>" + storedNames[i] + "\n </h1>")
+           //document.getElementById("test").innerHTML = storedNames[i];
+        }
+
+
+      }
+      //end of add highscore function
 
       //remove image of last enemy
       $(".img img:last-child").remove()
@@ -56,16 +92,16 @@ $(document).ready(function() {
     return num;
   }
 
-//NEW FUNCTION
+  //NEW FUNCTION
 
   //generate random position values for top
   function generateRandomHeight() {
     var num = Math.floor(Math.random() *
     // the height of the window.
-     (($(window).height() - 250) - 150 + 1) + 150);
+    (($(window).height() - 250) - 150 + 1) + 150);
     return num;
   }
-//NEW FUNCTION
+  //NEW FUNCTION
   //generate random positions value for Width
   function generateRandomWidth() {
     //the width of the window.
@@ -73,7 +109,7 @@ $(document).ready(function() {
     return num;
   }
 
-//NEW FUNCTION
+  //NEW FUNCTION
   //random number generator to set size of characters
   // Math.floor(Math.random() * (max - min + 1) ) + min;
   function generateSize() {
@@ -111,24 +147,26 @@ $(document).ready(function() {
   //when clicking on image gets score and removes picture of enemy
 
   img.click(function() {
-// added +1 score to the intial value
-    playerScore++;
-    score.html("<b  class='score'> Score: " + playerScore + " </b>");
+    if (timeLeft == 0) {
+        playerScore = 0;
+      }
 
-    $(".img img:last-child").remove()
-    //this removes the iamge after click
-  })
+      playerScore++;
+      score.html("<b  class='score'> Score: " + playerScore + " </b>");
+
+      $(".img img:last-child").remove()
+    })
 
 
-  //click function to restart game
-  restart.click(function() {
-    location.reload();
-  })
+    //click function for modal to restart game
+    restart.click(function() {
+      location.reload(); //reload page
+    })
 
   //image to vanish
   var pictureTimer = 0;
   function setResetInterval(bool) {
-// causes the images to vanish after a sec
+    // causes the images to vanish after a sec
     if (bool) {
       pictureTimer = setInterval(function() {
         setValue();
@@ -139,36 +177,85 @@ $(document).ready(function() {
     }
   }
 
+  //set first highscore to 0
+  storedNames = highScore;
+
+
+  $('#test').append("<h1>" + storedNames + "</h1>")
+
   //play button
 
   play.click(function() {
 
     playerScore = 0;
-    timeLeft = 30;
+
 
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
 
     if (playGame == false) {
-//reset the timer & then start the game
-      setResetInterval(true);
 
-      playGame = true;
 
-    } else {
-      setResetInterval(false);
-      playGame = false;
-    }
+    setResetInterval(true);
 
-    //close modal
+
+    playGame = true;
+
+  } else {
+    setResetInterval(false);
+    playGame = false;
+
+  }
+  playerScore = 0;
+  timeLeft = 30;
+  //does my main function for popping image up in interval
+  var a = true;
+
+  //close modal
   modal.style.display = "none";
-  });
-  //Modal
-  var modal = document.getElementById('myModal');
-  var btn = document.getElementById("myBtn");
 
-    btn.onclick = function() {
-    modal.style.display = "block";
+
+});
+
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+  //clears leaderboard scores
+  clearScore.click(function() {
+    localStorage.removeItem('names');
+    $('#test').html("");
+
+  })
+
+  //if there are no scores stored in web browser memory. make sure null
+  //is not displayed on screen
+
+  if (storedNames === null) {
+    $('#test').html("").empty();
   }
 
 });

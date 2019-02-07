@@ -1,4 +1,8 @@
-
+@font-face {
+  font-family: 'bigNoodle';
+  src: url('../fonts/font.eot') format('opentype');
+  src: url('../fonts/font.ttf') format('truetype');
+}
 #bg {
   background-color: grey;
   background-size:cover;
