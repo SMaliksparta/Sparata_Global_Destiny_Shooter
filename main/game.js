@@ -5,8 +5,8 @@ $(document).ready(function() {
   });
 
   var home = new Audio("start.mp3");
-setTimeout(  function(){$('body,html').addClass("load");
-home.play()
+  setTimeout(  function(){$('body,html').addClass("load");
+  home.play()
 
   var names = [];
   var storedNames;
@@ -17,6 +17,8 @@ home.play()
   }
 
   var start = document.getElementById("start");
+  var kill = document.getElementById("kill");
+  var audio = document.getElementById("audio");
   var playGame = false;
   //the var play links to the play class onthe html page.
   var play = $(".play");
@@ -62,7 +64,7 @@ home.play()
 
         for (var i = 0; i < (storedNames.length); i++) {
           $('#test').append("<h1>" + storedNames[i] + "\n </h1>")
-           //document.getElementById("test").innerHTML = storedNames[i];
+          //document.getElementById("test").innerHTML = storedNames[i];
         }
 
 
@@ -83,16 +85,16 @@ home.play()
   }, 1000);
 
   $('#bg').css("background-image", "url(img/stage.jpg)");
-    $('#bg').fadeIn();
+  $('#bg').fadeIn();
 
-//changes background image
+  //changes background image
   setInterval(function() {
 
     setTimeout(function(){
 
       $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeOut();
 
-  }, 8950);
+    }, 8950);
 
     var name = stages[generateRandomForBG()];
     $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeIn();
@@ -101,14 +103,14 @@ home.play()
 
   //found out JQuery is one of the better ways to assign the numbers to an container
   var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16","17","18","19","20","21","22"]
-var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
+  var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
   //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]
   //generate random number for name, as names are 0-8
   //NEW FUNCTION
   function generateRandomForArray() {
     //Math.random generates a number between 0 and 1, apply Math.floor, which rounds down to the nearest whole number:
     //Math.floor(Math.random() * 10 + 1)
-    var num = Math.floor(Math.random() * 22 + 1);
+    var num = Math.floor(Math.random() * 21 + 1);
     return num;
   }
   function generateRandomForBG() {
@@ -165,10 +167,7 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
       });
 
     }
-
   }
-
-
 
   //restart audio on click
   function audioPlay() {
@@ -179,29 +178,28 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
     }
   }
 
-
-
   var snd = new Audio("kill.mp3");
   //clearInterval(interval);
 
   //when clicking on image gets score and removes picture of enemy
 
   img.click(function() {
+    audioPlay() //plays kill sound
     if (timeLeft == 0) {
-        playerScore = 0;
-      }
+      playerScore = 0;
+    }
 
-      playerScore++;
-      score.html("<b  class='score'> Score: " + playerScore + " </b>");
+    playerScore++;
+    score.html("<b  class='score'> Score: " + playerScore + " </b>");
 
-      $(".img img:last-child").remove()
-    })
+    $(".img img:last-child").remove()
+  })
 
 
-    //click function for modal to restart game
-    restart.click(function() {
-      location.reload(); //reload page
-    })
+  //click function for modal to restart game
+  restart.click(function() {
+    location.reload(); //reload page
+  })
 
   //image to vanish
   var pictureTimer = 0;
@@ -233,57 +231,54 @@ var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
     //play main audiom (overwatch win music)
-        audio.play();
+    audio.play();
     if (playGame == false) {
 
 
-    setResetInterval(true);
+      setResetInterval(true);
 
 
-    playGame = true;
+      playGame = true;
 
-  } else {
-    setResetInterval(false);
-    playGame = false;
+    } else {
+      setResetInterval(false);
+      playGame = false;
 
+    }
+    playerScore = 0;
+    timeLeft = 30;
+    //does my main function for popping image up in interval
+    var a = true;
+
+    //close modal
+    modal.style.display = "none";
+
+  });
+
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
   }
-  playerScore = 0;
-  timeLeft = 30;
-  //does my main function for popping image up in interval
-  var a = true;
 
-  //close modal
-  modal.style.display = "none";
-
-
-});
-
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
     modal.style.display = "none";
   }
-}
 
-
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
   //clears leaderboard scores
   clearScore.click(function() {
@@ -298,33 +293,5 @@ window.onclick = function(event) {
   if (storedNames === null) {
     $('#test').html("").empty();
   }
-  //gun shot
-
-    //only run when modal is modal is not visible
-
-
-    //restart audio on click
-    function shotPlay() {
-      if (shot.paused) {
-        shot.play();
-      } else {
-        shot.currentTime = 0
-      }
-    }
-
-    var ammo = 8;
-    var shot = new Audio("shot.mp3");
-    //click listener only runs its function if modal is not visible
-    document.body.addEventListener('click', function() {
-      if (modal.style.display == "none") {
-
-
-        shotPlay();
-
-      }
-    }, true);
-
-
-
-  });
+});
 });
