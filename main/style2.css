@@ -69,13 +69,13 @@ button {
 
 @-webkit-keyframes buttons-animation {
   30% {
-    background-color: black;
+    background-color: indigo;
   }
   50% {
-    background-color: white;
+    background-color: blue;
   }
   100% {
-    background-color: blue;
+    background-color: white;
   }
   -webkit-animation: buttons-animation 5s infinite;
 }

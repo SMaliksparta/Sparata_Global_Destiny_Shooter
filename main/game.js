@@ -4,6 +4,10 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
+  var home = new Audio("start.mp3");
+setTimeout(  function(){$('body,html').addClass("load");
+home.play()
+
   var names = [];
   var storedNames;
   storedNames = JSON.parse(localStorage.getItem("names"));
@@ -78,10 +82,26 @@ $(document).ready(function() {
     }
   }, 1000);
 
-  $('#bg').css("background-image", "url(img/back1.png)");
-$('#bg').fadeIn();
+  $('#bg').css("background-image", "url(img/stage.png)");
+    $('#bg').fadeIn();
+
+//changes background image
+  setInterval(function() {
+
+    setTimeout(function(){
+
+      $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeOut();
+
+  }, 8950);
+
+    var name = stages[generateRandomForBG()];
+    $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeIn();
+
+  }, 9000)
+
   //found out JQuery is one of the better ways to assign the numbers to an container
   var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
   //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]
   //generate random number for name, as names are 0-8
   //NEW FUNCTION
@@ -89,6 +109,10 @@ $('#bg').fadeIn();
     //Math.random generates a number between 0 and 1, apply Math.floor, which rounds down to the nearest whole number:
     //Math.floor(Math.random() * 10 + 1)
     var num = Math.floor(Math.random() * 16 + 1);
+    return num;
+  }
+  function generateRandomForBG() {
+    var num = Math.floor(Math.random() * 5);
     return num;
   }
 
@@ -187,12 +211,15 @@ $('#bg').fadeIn();
 
   play.click(function() {
 
+    home.pause();
+    home.currentTime = 0;
     playerScore = 0;
 
 
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
-
+    //play main audiom (overwatch win music)
+        audio.play();
     if (playGame == false) {
 
 
@@ -257,5 +284,33 @@ window.onclick = function(event) {
   if (storedNames === null) {
     $('#test').html("").empty();
   }
+  //gun shot
 
+    //only run when modal is modal is not visible
+
+
+    //restart audio on click
+    function shotPlay() {
+      if (shot.paused) {
+        shot.play();
+      } else {
+        shot.currentTime = 0
+      }
+    }
+
+    var ammo = 8;
+    var shot = new Audio("shot.mp3");
+    //click listener only runs its function if modal is not visible
+    document.body.addEventListener('click', function() {
+      if (modal.style.display == "none") {
+
+
+        shotPlay();
+
+      }
+    }, true);
+
+
+
+  });
 });
