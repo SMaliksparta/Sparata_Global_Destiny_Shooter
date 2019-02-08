@@ -66,8 +66,6 @@ $(document).ready(function() {
           $('#test').append("<h1>" + storedNames[i] + "\n </h1>")
           //document.getElementById("test").innerHTML = storedNames[i];
         }
-
-
       }
       //end of add highscore function
 
@@ -165,20 +163,18 @@ $(document).ready(function() {
         "width": size + "px",
         "height": size + "px"
       });
-
     }
   }
-
   //restart audio on click
   function audioPlay() {
-    if (snd.paused) {
-      snd.play();
+    if (finishhim.paused) {
+      finishhim.play();
     } else {
-      snd.currentTime = 0
+      finishhim.currentTime = 0
     }
   }
 
-  var snd = new Audio("kill.mp3");
+  var finishhim = new Audio("kill.mp3");
   //clearInterval(interval);
 
   //when clicking on image gets score and removes picture of enemy
@@ -218,7 +214,6 @@ $(document).ready(function() {
   //set first highscore to 0
   storedNames = highScore;
 
-
   $('#test').append("<h1>" + storedNames + "</h1>")
 
   //play button
@@ -230,7 +225,7 @@ $(document).ready(function() {
     playerScore = 0;
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
-    //play main audiom (overwatch win music)
+    //play destiny ost
     audio.play();
     if (playGame == false) {
 
