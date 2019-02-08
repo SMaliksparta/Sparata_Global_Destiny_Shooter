@@ -4,16 +4,6 @@
   src: url('../fonts/font.ttf') format('truetype');
 }
 
-img {
-  //click function for modal to restart game
-  restart.click(function() {
-    playerScore=0;
-    timeLeft=30;
-    console.log("hello")
-  }
-  )
-}
-
 body {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -39,6 +29,14 @@ body, html {
   text-align: center;
 }
 
+#button {
+  border-radius: 2%;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  animation: buttons-animation 5s;
+  -webkit-animation: buttons-animation 5s infinite;
+  /* Safari and Chrome */
+}
 
 /* make button transparent */
 
@@ -55,15 +53,6 @@ button {
 
 .sizeInstructions {
   font-size: 40px;
-}
-
-#button {
-  border-radius: 2%;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  animation: buttons-animation 5s;
-  -webkit-animation: buttons-animation 5s infinite;
-  /* Safari and Chrome */
 }
 
 @-webkit-keyframes buttons-animation {

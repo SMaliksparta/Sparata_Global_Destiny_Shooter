@@ -3,15 +3,6 @@
   src: url('../fonts/font.eot') format('opentype');
   src: url('../fonts/font.ttf') format('truetype');
 }
-img {
-  //click function for modal to restart game
-  restart.click(function() {
-    playerScore=0;
-    timeLeft=30;
-    console.log("hello")
-  }
-  )
-}
 
 body, html {
   font-family: 'bigNoodle', sans-serif;
@@ -26,26 +17,13 @@ body, html {
   -webkit-transition: background-image 0.2s ease-in-out;
   transition: background-image 0.2s ease-in-out;
 
-  /* added code */
-
-
-
+  /* transiotn added */
   opacity: 0;
-
-
   -webkit-transition: opacity 2s ease-in;
   -moz-transition: opacity 2s ease-in;
   -ms-transition: opacity 2s ease-in;
   -o-transition: opacity 2s ease-in;
   transition: opacity 2s ease-in;
-
-
-
-
-
-
-
-
 }
 
 #blackBg {
@@ -72,11 +50,9 @@ body, html {
   z-index: -1;
 }
 
-
-body, html.load {
+body, html.start {
   opacity: 1;
 }
-
 
 /* styling for clear score button */
 
@@ -106,7 +82,31 @@ body, html.load {
   height: 80px;
 }
 
-/* make button transparent */
+/* The Close Button */
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#button {
+  border-radius: 10%;
+  opacity: 0.8;
+  filter: alpha(opacity=90);
+  animation: buttons-animation 5s;
+  -webkit-animation: buttons-animation 5s infinite;
+  /* Safari and Chrome */
+}
+/* makes all buttons transparent
+including the score and timer  */
 
 button {
   background-color: transparent;
@@ -164,30 +164,6 @@ button {
   border-radius: 5%;
 }
 
-/* The Close Button */
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover, .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#button {
-  border-radius: 10%;
-  opacity: 0.8;
-  filter: alpha(opacity=90);
-  animation: buttons-animation 5s;
-  -webkit-animation: buttons-animation 5s infinite;
-  /* Safari and Chrome */
-}
-
 @-webkit-keyframes buttons-animation {
   30% {
     background-color: white;
@@ -199,6 +175,3 @@ button {
     background-color: white;
   }
 }
-
-
-/* fade in animation */

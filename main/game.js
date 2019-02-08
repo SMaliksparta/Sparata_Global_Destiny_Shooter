@@ -4,9 +4,7 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
-  var home = new Audio("start.mp3");
-  setTimeout(  function(){$('body,html').addClass("load");
-  home.play()
+  setTimeout(  function(){$('body,html').addClass("start");
 
   var names = [];
   var storedNames;
@@ -14,6 +12,7 @@ $(document).ready(function() {
   var highScore = 0; //highscore
   if (storedNames != null) {
     highScore = storedNames[storedNames.length - 1];
+    //the json object get stringified to push out a highscore
   }
 
   var start = document.getElementById("start");
@@ -23,8 +22,8 @@ $(document).ready(function() {
   //the var play links to the play class onthe html page.
   var play = $(".play");
   var playerScore = 0;
-  debugger;
-  //set selectors
+  //debugger;
+  ////////set selectors
   var timer = $(".timer");
   var score = $(".score");
   var img = $(".img");
@@ -32,7 +31,7 @@ $(document).ready(function() {
   var restart = $(".restart");
   var clearScore = $(".clearScore");
 
-  //TIMER
+  //////////TIMER
   var timeLeft = 0; //30 seconds timer for player
 
   setInterval(function countDown() {
@@ -44,32 +43,29 @@ $(document).ready(function() {
     }
     if (timeLeft == 0) { //remove image
 
-      //push score to leaderboard
-      //get the highest score and push it to leader board only if it's
-      //higher than current score
-
-
+      ///////////Updating leaderboards
+      //get the highest score and replace only if it's higher than previous score
       //if statement to update highscore
       if (playerScore > highScore) {
-        //delete previous high score array text
-
+        //delete previous high score in array
 
         localStorage.setItem("names", JSON.stringify(names));
         names.push(playerScore) //add score
-        // names[0]=playerScore;
+        // it adds the score to the array to look something like this -> [0]=playerScore;
         localStorage.setItem("names", JSON.stringify(names));
         storedNames = JSON.parse(localStorage.getItem("names"));
-
+        //a little gltich occurs trying to to save more than 2 i get a duplicate result
         highScore = playerScore;
 
         for (var i = 0; i < (storedNames.length); i++) {
           $('#test').append("<h1>" + storedNames[i] + "\n </h1>")
+          //wanting to test the local storage and if stringfying the json object would work.
           //document.getElementById("test").innerHTML = storedNames[i];
         }
       }
       //end of add highscore function
 
-      //remove image of last enemy
+      ///////removing the image of last enemy
       $(".img img:last-child").remove()
 
       playGame = false;
@@ -82,29 +78,28 @@ $(document).ready(function() {
     }
   }, 1000);
 
-  $('#bg').css("background-image", "url(img/stage.jpg)");
+  $('#bg').css("background-image", "url(img/back.jpg)");
   $('#bg').fadeIn();
 
-  //changes background image
+  /////////changing background image
   setInterval(function() {
-
     setTimeout(function(){
 
       $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeOut();
 
     }, 8950);
 
-    var name = stages[generateRandomForBG()];
+    var name = back[generateRandomForBG()];
     $('#bg').css("background-image", "url(img/" + name + ".jpg)").fadeIn();
 
   }, 9000)
 
   //found out JQuery is one of the better ways to assign the numbers to an container
-  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16","17","18","19","20","21","22"]
-  var stages = ["stage1", "stage2", "stage3", "stage4", "stage5"];
-  //var backgrounds = ["back1", "back2" , "back3" , "back4" , "back5" ]
+  var container = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16","17","18","19","20","21"]
   //generate random number for name, as names are 0-8
-  //NEW FUNCTION
+  var back = ["back1", "back2", "back3", "back4", "back5"];
+  //generate a random background using the same random genreation as enemies
+  /////////NEW FUNCTION
   function generateRandomForArray() {
     //Math.random generates a number between 0 and 1, apply Math.floor, which rounds down to the nearest whole number:
     //Math.floor(Math.random() * 10 + 1)
@@ -116,8 +111,7 @@ $(document).ready(function() {
     return num;
   }
 
-  //NEW FUNCTION
-
+  /////////NEW FUNCTION
   //generate random position values for top
   function generateRandomHeight() {
     var num = Math.floor(Math.random() *
@@ -125,7 +119,7 @@ $(document).ready(function() {
     (($(window).height() - 250) - 150 + 1) + 150);
     return num;
   }
-  //NEW FUNCTION
+  /////////NEW FUNCTION
   //generate random positions value for Width
   function generateRandomWidth() {
     //the width of the window.
@@ -133,7 +127,7 @@ $(document).ready(function() {
     return num;
   }
 
-  //NEW FUNCTION
+  ////////NEW FUNCTION
   //random number generator to set size of characters
   // Math.floor(Math.random() * (max - min + 1) ) + min;
   function generateSize() {
@@ -141,8 +135,7 @@ $(document).ready(function() {
     return num;
   }
 
-  //sets value of imgaes and gos through them changing image file and position
-
+  /////////sets value a value to iamges and randomizes them on the x-axis and y-axis but also thier size
   function setValue() {
     if (playGame == true) {
 
@@ -165,7 +158,7 @@ $(document).ready(function() {
       });
     }
   }
-  //restart audio on click
+  /////////restart audio on click
   function audioPlay() {
     if (finishhim.paused) {
       finishhim.play();
@@ -173,12 +166,9 @@ $(document).ready(function() {
       finishhim.currentTime = 0
     }
   }
-
   var finishhim = new Audio("kill.mp3");
-  //clearInterval(interval);
 
-  //when clicking on image gets score and removes picture of enemy
-
+  ////////when clicking on image gets score and removes picture of enemy
   img.click(function() {
     audioPlay() //plays kill sound
     if (timeLeft == 0) {
@@ -191,13 +181,12 @@ $(document).ready(function() {
     $(".img img:last-child").remove()
   })
 
-
-  //click function for modal to restart game
+  ////////Restart game function
   restart.click(function() {
     location.reload(); //reload page
   })
 
-  //image to vanish
+  /////////image to vanish after a sec function
   var pictureTimer = 0;
   function setResetInterval(bool) {
     // causes the images to vanish after a sec
@@ -211,28 +200,21 @@ $(document).ready(function() {
     }
   }
 
-  //set first highscore to 0
+  //sets first highscore to 0
   storedNames = highScore;
 
   $('#test').append("<h1>" + storedNames + "</h1>")
 
-  //play button
+  /////////play button
 
   play.click(function() {
-
-    home.pause();
-    home.currentTime = 0;
     playerScore = 0;
 
     score.html("<b  class='score'> Score: " + playerScore + " </b>");
     //play destiny ost
     audio.play();
     if (playGame == false) {
-
-
       setResetInterval(true);
-
-
       playGame = true;
 
     } else {
@@ -240,10 +222,9 @@ $(document).ready(function() {
       playGame = false;
 
     }
+
     playerScore = 0;
     timeLeft = 30;
-    //does my main function for popping image up in interval
-    var a = true;
 
     //close modal
     modal.style.display = "none";
@@ -282,8 +263,7 @@ $(document).ready(function() {
 
   })
 
-  //if there are no scores stored in web browser memory. make sure null
-  //is not displayed on screen
+  //if there are no scores stored in web browser memory. make sure null is not displayed on screen becasue it does otherwise
 
   if (storedNames === null) {
     $('#test').html("").empty();
